@@ -1,0 +1,301 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>回来 · 自我觉察</title><meta name="theme-color" content="#F7F3EA"><link rel="apple-touch-icon" href="icon.png"><link rel="icon" href="icon.png"><style>
+:root{--paper:#F7F3EA;--card:#FCFAF3;--ink:#2E2A24;--body:#4E463B;--muted:#97907F;--accent:#9E5138;--dark:#7C3D28;--green:#6F7D5C;--line:#E3DBC8;--soft:#F1EBDC}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:"Songti SC","Noto Serif SC","STSong","SimSun",serif;background:var(--paper);color:var(--ink);line-height:1.9}
+#app{max-width:520px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;padding:28px 22px calc(34px + env(safe-area-inset-bottom))}
+.brand{font-size:13px;color:var(--muted);letter-spacing:.45em;text-align:center;margin-bottom:24px}
+h1{font-size:40px;font-weight:600;line-height:1.4;letter-spacing:.3em;text-indent:.3em;margin:14px 0 10px}
+h2{font-size:22px;font-weight:600;line-height:1.6;margin:8px 0 12px}
+h2 .n{color:var(--accent);font-weight:400;margin-right:10px;font-size:19px}
+h2 .dim{font-weight:400;font-family:"Kaiti SC","STKaiti","KaiTi",serif}
+.sub{font-size:15px;color:var(--muted);font-family:"Kaiti SC","STKaiti","KaiTi",serif;margin-bottom:20px}
+p{font-size:16px;color:var(--body);margin-bottom:14px}
+.quote{background:var(--card);border-left:2px solid var(--accent);padding:16px 20px;font-size:16px;line-height:2;color:var(--body);font-family:"Kaiti SC","STKaiti","KaiTi",serif;margin:16px 0}
+.quote b{color:var(--dark);font-weight:600}
+textarea{width:100%;min-height:120px;background:transparent;border:1px solid var(--line);border-radius:4px;padding:14px;font-family:inherit;font-size:16px;line-height:1.9;color:var(--ink);resize:vertical}
+textarea:focus{outline:none;border-color:var(--accent)}
+textarea::placeholder{color:#C7B299;font-family:"Kaiti SC","STKaiti","KaiTi",serif}
+.hint{font-size:13px;color:var(--muted);margin-top:8px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 18px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--body);border-radius:2px;padding:8px 16px;font-size:15px;font-family:inherit}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#F7F3EA}
+.btn{display:block;width:100%;border:none;border-radius:2px;background:var(--ink);color:#F7F3EA;font-family:inherit;font-size:17px;letter-spacing:.35em;text-indent:.35em;padding:15px;margin-top:24px}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+.btn.mini{display:inline-block;width:auto;font-size:15px;padding:9px 18px;margin:0;letter-spacing:.1em;text-indent:0}
+.btnrow{display:flex;gap:10px;justify-content:center;margin-top:24px;flex-wrap:wrap}
+.hitem{padding:12px 4px;border-bottom:1px solid var(--line);cursor:pointer}
+.hitem:active{background:var(--soft)}
+#wangnian{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+#wangnian .chip{width:100%;font-size:13px;padding:10px 4px;line-height:1.4}
+.kline{text-align:center;font-family:"Kaiti SC","STKaiti","KaiTi",serif;color:var(--dark);font-size:20px;font-weight:600;letter-spacing:.06em;line-height:2;margin:20px 0 0}
+.krule{width:64px;height:1px;background:var(--accent);opacity:.45;margin:10px auto}
+.dianjing{text-align:center;font-family:"Kaiti SC","STKaiti","KaiTi",serif;color:var(--dark);font-size:15px;letter-spacing:.05em}
+.dots{display:flex;gap:10px;justify-content:center;margin:6px 0 20px}
+.dots i{width:5px;height:5px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--accent)}
+.cols{display:flex;flex-direction:column;gap:16px;margin-top:8px}
+.col{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:16px}
+.col .t{font-size:16px;margin-bottom:10px;letter-spacing:.05em}
+.col.f .t{color:var(--dark)}
+.col.p .t{color:var(--green)}
+.col textarea{min-height:100px;border-width:1px;background:var(--card)}
+.breathwrap{display:flex;flex-direction:column;align-items:center;padding:26px 0}
+.circle{width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#C89A7B,var(--accent));display:flex;align-items:center;justify-content:center;color:#F7F3EA;font-size:16px;letter-spacing:.2em;transition:transform 3.8s ease-in-out;box-shadow:0 10px 30px rgba(124,61,40,.22)}
+.breathcount{margin-top:18px;font-size:15px;color:var(--muted);font-family:"Kaiti SC","STKaiti","KaiTi",serif}
+.overlay{position:fixed;inset:0;background:rgba(46,42,36,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:50}
+.overlay.show{display:flex}
+.panel{background:var(--paper);border-radius:4px;max-width:420px;width:100%;padding:28px 24px;max-height:86vh;overflow:auto}
+.panel h3{font-size:19px;letter-spacing:.15em;margin-bottom:14px;color:var(--dark)}
+.panel p{font-size:16px;line-height:2}
+.panel .btn{margin-top:16px}
+.card{background:var(--card);border:1px solid var(--ink);border-radius:4px;padding:24px;margin-top:8px}
+.card .hd{text-align:center;border-bottom:1px solid var(--ink);padding-bottom:12px;margin-bottom:14px}
+.card .hd .t1{font-size:21px;letter-spacing:.3em;text-indent:.3em;color:var(--dark)}
+.card .hd .t2{font-size:12px;letter-spacing:.2em;color:var(--muted)}
+.card h4{font-size:15px;letter-spacing:.1em;color:var(--dark);margin:14px 0 6px}
+.card p{font-size:15px;line-height:1.9;white-space:pre-wrap}
+.card .end{border-top:1px dashed var(--line);margin-top:16px;padding-top:12px;font-size:13px;color:var(--muted)}
+.linkrow{margin-top:24px;text-align:center;font-size:12px;color:var(--muted);letter-spacing:.1em}
+.linkrow a{color:var(--muted)}
+.help{display:none;background:var(--soft);border-radius:4px;padding:14px 16px;font-size:14px;color:var(--body);margin-top:10px}
+.help.show{display:block}
+input#uname{width:100%;background:transparent;border:1px solid var(--line);border-radius:4px;padding:12px 14px;font-family:inherit;font-size:16px;color:var(--ink);margin-top:6px}
+input#uname:focus{outline:none;border-color:var(--accent)}
+.center{text-align:center}
+.dim{color:var(--muted);font-size:13px}
+#toast{position:fixed;left:50%;bottom:16%;transform:translateX(-50%);background:var(--ink);color:#F7F3EA;font-family:"Kaiti SC","STKaiti","KaiTi",serif;padding:10px 24px;border-radius:2px;font-size:15px;letter-spacing:.1em;opacity:0;pointer-events:none;transition:opacity .4s;z-index:60;white-space:nowrap}
+#toast.show{opacity:.95}
+@media print{body *{visibility:hidden}#vcard,#vcard *{visibility:visible}#vcard{position:fixed;left:50%;top:24px;transform:translateX(-50%);width:92%;margin:0}}
+</style></head><body>
+<div id="app"></div>
+<div id="toast"></div>
+<div class="overlay" id="ovl"><div class="panel" id="ovlbox"></div></div>
+<script>
+const S={
+ openB:"我看到你的情绪了，不要抵抗它，做完以下记录，相信你的情绪很快就走了。试一试吧！",
+ attack:"它是一个念头（感受），还是你看到的真实事件？请记录你眼睛看到的事实；回到事实中来，不要掉进剧情里。此刻，你可以先深呼吸，让身体回来，不被小我带走。",
+ zhijue:"觉知：刚才发生了什么，我知道发生了什么。结束。做一些现在想做的事情，即可。",
+ yongqi:"向内看，向自己开刀需要很大的勇气，这就是自我负责；不推卸任何责任，只是向内看，看见自己的业力惯性的思维模式和执念、头脑对他人的期待。",
+ emos:["生气","愤怒","烦躁","心烦","委屈","憋屈","内疚","自责","羞愧","后悔","焦虑","担心","害怕","恐惧","紧张","不安","无力","疲惫","失望","伤心","悲伤","孤独","嫉妒","怨恨","不甘","无奈","迷茫","厌烦","又爱又气"],
+ wangnian:["我希望Ta理解我、看见我","我以为这才是爱…","我担心Ta…","我忍不住想去管Ta的事","我想让这件事的结果如我所愿","我在意Ta人的评判","XX不是我期待的样子","我觉得我是对的，你应该听我的"]
+};
+const ATTACK_RE=/(我真|我就是|我是)?(没?有用|没用|无用|失败|差劲|糟糕透?顶|坏妈妈|坏爸爸|不配|废物|烂透)|都是我的错|我受不了自己|我怎么(这么|这)样?|又(搞砸|弄砸)|我真差|讨厌自己|恨死自己|我这人真|无可救药/;
+let st={step:0,d:{}};
+try{const saved=localStorage.getItem("fenlan_draft");if(saved)st=JSON.parse(saved);}catch(e){}
+function save(){try{localStorage.setItem("fenlan_draft",JSON.stringify(st))}catch(e){}}
+const $=s=>document.querySelector(s);
+function esc(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function dots(){let n=5,h='<div class="dots">';for(let i=0;i<n;i++)h+='<i class="'+(i===st.step-1?"on":"")+'"></i>';return h+"</div>"}
+function field(id,ph,h){return '<textarea id="'+id+'" placeholder="'+ph+'">'+esc(st.d[id])+"</textarea>"+(h?'<div class="hint">'+h+"</div>":"")}
+function bind(id){const el=$("#"+id);if(el)el.addEventListener("input",()=>{st.d[id]=el.value;save();checkAttack(el)})}
+function chipRow(id,list){let h='<div class="chips" id="'+id+'">';list.forEach(c=>{h+='<button type="button" class="chip'+((st.d[id]||[]).includes(c)?" on":"")+'" data-v="'+c+'">'+c+"</button>"});return h+"</div>"}
+function bindChips(id){const box=$("#"+id);if(!box)return;box.querySelectorAll(".chip").forEach(b=>b.addEventListener("click",()=>{let arr=st.d[id]||[];const v=b.dataset.v;if(arr.includes(v)){arr=arr.filter(x=>x!==v);b.classList.remove("on")}else{arr.push(v);b.classList.add("on")}st.d[id]=arr;save()}))}
+
+/* ---- 自我攻击识别：她的原话卡片 ---- */
+function checkAttack(el){
+  if(el.dataset.warned)return;
+  const txt=(el.value||"");
+  const tail=txt.slice(-160);
+  if(!ATTACK_RE.test(tail))return;
+  el.dataset.warned="1";
+  ovl('<h3>停一下，看见这个</h3><p>'+S.attack+'</p>'+
+    '<button class="btn" onclick="breath()">深呼吸，让身体回来</button>'+
+    '<button class="btn ghost" onclick="closeOvl()">很好，请继续觉察</button>'+
+    '<p class="dim center" style="margin-top:10px">5秒后自动消失，可继续记录</p>',true);
+}
+let ovlTimer=null;
+function ovl(html,auto){clearTimeout(ovlTimer);$("#ovlbox").innerHTML=html;$("#ovl").classList.add("show");if(auto)ovlTimer=setTimeout(()=>{$("#ovl").classList.remove("show")},5000)}
+function closeOvl(why){clearTimeout(ovlTimer);$("#ovl").classList.remove("show");
+  if(why==="stop"){st.step=7;render()}}
+function breath(){
+  ovl('<h3 class="center">让身体回来</h3><div class="breathwrap"><div class="circle" id="bc">准备…</div><div class="breathcount" id="bct"></div></div>');
+  const msgs=["吸气…慢一点","停住…","呼气…把气放干净","吸气…","停住…","呼气…","吸气…","呼气…","好了。感受一下脚踩在地上，看看你周围的三个东西。"];
+  const c=$("#bc"),t=$("#bct");let i=0;
+  function nxt(){
+    if(i>=msgs.length){t.textContent=msgs[msgs.length-1];c.style.transform="scale(1)";
+      setTimeout(()=>{ovl('<h3 class="center">身体回来了</h3><p class="center" style="margin-bottom:4px">现在，回到事实中来。</p><p class="center dim">不要掉进剧情里。很好，请继续觉察。</p><button class="btn" onclick="closeOvl(\'ok\')">继续</button><button class="btn ghost" onclick="closeOvl(\'stop\')">今天到这里，够了</button>')},900);return}
+    const m=msgs[i];t.textContent=m;
+    c.style.transform=(i%3===0)?"scale(1.25)":(i%3===2)?"scale(0.85)":"scale(1.25)";
+    i++;setTimeout(nxt,i===3||i===6?2600:2200);
+  }
+  c.style.transform="scale(1)";nxt();
+}
+
+/* ---- 各屏 ---- */
+function leaveBtn(){return '<div class="linkrow"><a href="javascript:void(0)" onclick="leave()">先离开，下次继续——写过的都在</a></div>'}
+function render(){
+  const a=$("#app");const d=st.d;
+  if(st.step===0){
+    a.innerHTML='<div class="brand">如 他 所 是 · 觉 察 系 列</div><div class="center"><svg width="120" height="74" viewBox="0 0 140 90" style="stroke:var(--accent);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round"><path d="M52,52 C60,40 76,40 86,54 C80,72 58,76 52,52"/><path d="M62,46 C72,30 88,30 98,42"/><path d="M86,54 L104,48"/><path d="M52,52 L38,62"/><path d="M20,20 L32,34 M6,50 L20,60 M44,8 L50,22" stroke-dasharray="1 8"/></svg></div><div class="center"><h1>回·来</h1></div>'+
+    '<p style="font-size:16px;color:var(--dark);margin-bottom:14px">情绪来了，不是坏事——那正是觉察自己的最好时机。</p>'+
+    '<div class="quote">'+S.openB+'</div>'+
+    '<p class="dim">全程大约三分钟，你写的一切只存在你自己的手机里，别人看不到。</p>'+
+    (draftStep()>0?'<button class="btn ghost" onclick="st.step='+Math.min(draftStep(),5)+';render()">继续上一次的觉察</button>':"")+ 
+    '<button class="btn" onclick="st.step=1;render()">开始</button>'+
+    '<p class="dim center" style="margin-top:12px">向内看，需要勇气</p>'+
+    (hist().length?'<div class="linkrow"><a href="javascript:void(0)" onclick="showHist()">我的日志（'+hist().length+'）</a></div>':"");
+    return;
+  }
+  if(st.step===1){
+    a.innerHTML=dots()+'<h2><span class="n">1</span>此刻，我的情绪</h2><div class="sub">不用分析它，先认出它。情绪没有对错。</div>'+
+      chipRow("emos",S.emos)+
+      '<button class="btn" onclick="go(2)">继续</button>';
+    bindChips("emos");return;
+  }
+  if(st.step===2){
+    a.innerHTML=dots()+'<h2><span class="n">2</span>刚才发生了什么？</h2><div class="cols">'+
+      '<div class="col p"><div class="t" style="font-size:17px">💭（小我）头脑认为的我和Ta应该是怎么样的？</div>'+field("plot","我觉得……我希望……Ta应该……")+'</div>'+
+      '<div class="col f"><div class="t" style="font-size:17px">📷 事实中的我和Ta是什么样子的？</div><div class="hint" style="margin:0 0 6px">只记录看到、听到的真实状态，像摄像机拍摄下来的一样～</div>'+field("fact","我：\nTa：")+'</div></div>'+
+      '<div id="camtip" class="hint" style="display:none;margin:10px 0 0;color:var(--dark)">🤔 思考：哪一栏是摄像头拍不到的“念头”？是这个“念头”让你有情绪，还是这件事本身？</div>'+
+      '<div style="font-size:17px;font-weight:600;color:#7C3D28;margin:12px 0 6px">我有情绪是因为——<span class="dim" style="font-weight:400">（可点选）</span></div>'+
+      chipRow("wangnian",S.wangnian)+
+      field("emoreason","我有情绪是因为……")+
+      '<div class="quote" style="text-align:center">事实本身不会带来痛苦，<br>痛苦源于现实与我预想的不一致。</div>'+
+      '<button class="btn ghost" style="margin-top:12px" onclick="toast(\'放下掌控他人的心，情绪就会散去。\')">戳破它</button>'+
+      '<button class="btn" onclick="go(3)">继续</button>';
+    bind("fact");bind("plot");bind("emoreason");bindChips("wangnian");
+    const cam=()=>{const t=$("#camtip");if(t)t.style.display=($("#plot").value.trim()&&$("#fact").value.trim())?"block":"none"};
+    $("#plot").addEventListener("input",cam);$("#fact").addEventListener("input",cam);cam();return;
+  }
+  if(st.step===3){
+    let inner;
+    if(st.choice==="fact"){
+      inner='<p class="hint">此刻，可以做什么具体的事让自己舒服、放松？</p>'+
+        field("nowact","写一件此刻就能做的小事")+
+        '<div class="hint">一杯水、开窗站一会儿、听音乐、做饭、出去走走，都算。</div>'+
+        '<div class="quote" style="text-align:center">回归现实才是疗愈。<br>不进入剧情，不被小我带走，谁都伤害不了你。</div>'+
+        '<button class="btn" onclick="go(4)">继续</button>';
+    }else if(st.choice==="pain"){
+      inner='<div class="quote">好，那就允许自己再待一会儿。情绪是你的，什么时候出来，你说了算。</div>'+
+        '<button class="btn ghost" onclick="st.choice=\'fact\';save();render()">想出来了，看事实</button>';
+    }else{
+      inner='<p class="hint" style="font-size:16px;line-height:1.9">你想继续待在情绪里，伤心痛苦，还是看事实、看见自己的妄想？<b>你自己选择。</b></p>'+
+        '<button class="btn ghost" onclick="st.choice=\'pain\';save();render()">继续痛苦</button>'+
+        '<button class="btn ghost" onclick="st.choice=\'fact\';save();render()">看事实</button>';
+    }
+    a.innerHTML=dots()+'<h2><span class="n">3</span>回到当下</h2>'+inner;
+    if(st.choice==="fact")bind("nowact");
+    return;
+  }
+  if(st.step===4){
+    a.innerHTML=dots()+'<h2><span class="n">4</span>我是我，Ta是Ta</h2>'+
+      '<div style="display:flex;border:1px solid var(--line);background:var(--card);border-radius:6px;margin:4px 0 12px">'+
+        '<div style="flex:1;text-align:center;padding:26px 8px;font-family:\'Kaiti SC\',\'STKaiti\',\'KaiTi\',serif;font-size:24px;letter-spacing:.15em;color:var(--ink)">我是我</div>'+
+        '<div style="width:1px;background:var(--line)"></div>'+
+        '<div style="flex:1;text-align:center;padding:26px 8px;font-family:\'Kaiti SC\',\'STKaiti\',\'KaiTi\',serif;font-size:24px;letter-spacing:.15em;color:var(--dark)">Ta是Ta</div>'+
+      '</div>'+
+      '<div class="hint" style="text-align:center">Ta，是孩子、老公、朋友、爸妈，等任何其他人</div>'+
+      '<div style="text-align:center;font-size:17px;font-weight:600;color:#7C3D28;margin:14px 0 4px">我什么也掌控不了</div>'+
+      '<div class="quote" style="text-align:center">敢于在生活中自我觉察，<br>才是真正的修行，才能恢复自己的主体性。</div>'+
+      '<button class="btn" onclick="go(5)">收尾</button>'+leaveBtn();
+    return;
+  }
+  if(st.step===5){
+    a.innerHTML=dots()+'<h2>恭喜你，完成了一次自我觉知。</h2>'+
+      '<input id="uname" placeholder="你的名字（写进日志署名，可不填）" value="'+esc(st.name||"")+'">'+
+      '<div id="cardbox"></div>'+
+      '<div class="kline"><div class="krule"></div>觉知就是刚才发生了什么，<br>我知道发生了什么。<div class="krule"></div></div>'+
+      '<div class="btnrow"><button class="btn mini" onclick="copyAll()">复制这份记录</button><button class="btn mini" onclick="makeImg()">保存图片</button><button class="btn mini ghost" onclick="askRestart()">再来一次</button><button class="btn mini ghost" onclick="showHist()">我的日志</button></div>';
+    const u=$("#uname");if(u)u.addEventListener("input",()=>{st.name=u.value;save();showCard()});
+    showCard();return;
+  }
+  if(st.step===7){
+    a.innerHTML='<div class="center"><h1>今天到这里</h1></div>'+
+      '<div class="quote">允许自己停下来，也是觉察。</div>'+
+      '<p class="dim">'+S.zhijue+'</p>'+
+      '<p class="dim">你写下的草稿还在手机里，想回来的时候它都在。</p>'+
+      '<button class="btn" onclick="st.step=0;render()">回到首页</button>';
+    return;
+  }
+}
+function draftStep(){try{return (JSON.parse(localStorage.getItem("fenlan_draft")||"{}").step)||0}catch(e){return 0}}
+function leave(){save();st.step=0;render();window.scrollTo(0,0)}function go(n){
+  if(st.step===2&&!$("#fact").value.trim()&&!$("#plot").value.trim()){alert("两个栏至少写一个，分栏才算发生过：）");return}
+  if(st.step===2&&!st._seen){
+    const seen=(st.d.wangnian||[]).length||($("#emoreason")&&$("#emoreason").value.trim());
+    if(seen){st._seen=1;
+      ovl('<p style="text-align:center;font-size:16px;line-height:2;margin:4px 0 6px">恭喜你，看到自己因为什么而有情绪。</p><button class="btn" onclick="closeOvl();go(3)">继续</button>');return}
+  }
+  st._seen=0;st.step=n;save();render();window.scrollTo(0,0);
+}
+function plain(){
+  const d=st.d;const L=[];
+  L.push((st.name?st.name+" · ":"")+"【觉察日志】"+new Date().toLocaleString("zh-CN"));
+  if(d.event)L.push("\n◆ 发生了什么\n"+d.event);
+  const why=[];if((d.wangnian||[]).length)why.push(d.wangnian.join("、"));if(d.emoreason)why.push(d.emoreason);
+  if(why.length)L.push("\n◆ 我有情绪是因为——\n"+why.join("\n"));
+  if(d.plot)L.push("\n◆ 小我认为的——\n"+d.plot);
+  if(d.fact)L.push("\n◆ 事实是——\n"+d.fact);
+  if(d.nowact)L.push("\n◆ 当下我可以做——\n"+d.nowact);
+  L.push("\n——\n爱是如他所是，而非如我所愿。");
+  return L.join("\n");
+}
+function copyAll(){
+  const t=plain();
+  if(navigator.clipboard){navigator.clipboard.writeText(t).then(()=>toast("已复制，去粘贴给任何你想留给它的地方。")).catch(()=>fallbackCopy(t))}
+  else fallbackCopy(t);
+}
+function fallbackCopy(t){const ta=document.createElement("textarea");ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");toast("已复制，去粘贴给任何你想留给它的地方。")}catch(e){toast("复制失败，请手动长按选择文字。")}document.body.removeChild(ta)}
+function askRestart(){ovl('<h3>再来一次？</h3><p>当前的觉察日志会自动存进“我的日志”，放心开始新的。</p><button class="btn" onclick="archive();closeOvl();st.d={};st.choice=null;st._seen=0;st.step=0;save();render();toast(\'已存入我的日志\')">存好，开始新的</button><button class="btn ghost" onclick="closeOvl()">先不了</button>')}
+function hist(){try{return JSON.parse(localStorage.getItem("fenlan_hist")||"[]")}catch(e){return[]}}
+function archive(){const d=st.d;if(!(d.fact||d.plot||d.kid||d.nowact||d.found||(d.emos||[]).length))return;const h=hist();h.unshift({name:st.name||"",time:Date.now(),d:d});try{localStorage.setItem("fenlan_hist",JSON.stringify(h.slice(0,50)))}catch(e){}}
+function fmtDay(t){return new Date(t).toLocaleDateString("zh-CN",{month:"long",day:"numeric"})}
+function showHist(){const h=hist();let html='<h3>我的日志</h3>';if(!h.length)html+='<p class="dim">还没有保存的日志。</p>';h.forEach((r,i)=>{html+='<div class="hitem" onclick="viewLog('+i+')"><b>'+esc(r.name||"未署名")+'</b><span class="dim"> · '+fmtDay(r.time)+'</span><br><span class="dim">'+esc((r.d.fact||r.d.plot||r.d.kid||r.d.nowact||"").slice(0,26))+'…</span></div>'});html+='<button class="btn ghost" onclick="closeOvl()">关闭</button>';ovl(html)}
+function viewLog(i){const r=hist()[i];if(!r)return;ovl(cardHTML(r.d,r.name,fmtDay(r.time))+'<div class="btnrow"><button class="btn mini ghost" onclick="showHist()">返回列表</button><button class="btn mini ghost" onclick="closeOvl()">关闭</button></div>')}
+function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("show");clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove("show"),2200)}
+function makeImg(){
+  const d=st.d;const dt=new Date().toLocaleDateString("zh-CN",{year:"numeric",month:"long",day:"numeric"});
+  const W=750,PAD=56,CW=W-PAD*2;
+  const rows=[{t:"hd1",s:"如他所是 · 觉察日志"},{t:"hd2",s:(st.name?st.name+" · ":"")+dt},{t:"div"}];
+  if((d.wangnian||[]).length||d.emoreason){rows.push({t:"h4",s:"我有情绪是因为——"});if((d.wangnian||[]).length)rows.push({t:"p",s:d.wangnian.join("、")});if(d.emoreason)rows.push({t:"p",s:d.emoreason})}
+  if(d.plot){rows.push({t:"h4",s:"小我认为的——"},{t:"p",s:d.plot})}
+  if(d.fact){rows.push({t:"h4",s:"事实是——"},{t:"p",s:d.fact})}
+  if(d.nowact){rows.push({t:"h4",s:"当下我可以做——"},{t:"p",s:d.nowact})}
+  rows.push({t:"end",s:"爱是如他所是，而非如我所愿。"});
+  rows.push({t:"div"});
+  const fonts={hd1:'600 40px "Songti SC","STSong",serif',hd2:'24px "Kaiti SC","STKaiti","KaiTi",serif',h4:'600 28px "Songti SC","STSong",serif',p:'28px "Songti SC","STSong",serif',end:'26px "Kaiti SC","STKaiti","KaiTi",serif'};
+  const LH={hd1:60,hd2:42,h4:46,p:46,end:42};
+  const m=document.createElement("canvas").getContext("2d");
+  function wrap(s,font,maxW){m.font=font;const out=[];let line="";for(const ch of s){if(m.measureText(line+ch).width>maxW&&line){out.push(line);line=ch}else line+=ch}if(line)out.push(line);return out}
+  let y=PAD+110;
+  const layout=rows.map(r=>{const lines=r.t==="div"?[]:wrap(r.s,fonts[r.t],CW);const h=r.t==="div"?30:(lines.length*LH[r.t]+(r.t==="h4"?26:(r.t==="p"?10:0)));const o={r,lines,y};y+=h;return o});
+  const H=Math.ceil(y+PAD);
+  const c=document.createElement("canvas");c.width=W;c.height=H;const x=c.getContext("2d");
+  x.fillStyle="#FCFAF3";x.fillRect(0,0,W,H);
+  x.strokeStyle="#2E2A24";x.lineWidth=2;x.strokeRect(24,24,W-48,H-48);
+  // 顶部小鸟（线稿，与首页同源）
+  x.save();x.translate(W/2-50,42);x.scale(.92,.92);
+  x.strokeStyle="#9E5138";x.lineWidth=2.8;x.lineCap="round";x.lineJoin="round";
+  x.beginPath();x.moveTo(52,52);x.bezierCurveTo(60,40,76,40,86,54);x.bezierCurveTo(80,72,58,76,52,52);x.stroke();
+  x.beginPath();x.moveTo(62,46);x.bezierCurveTo(72,30,88,30,98,42);x.stroke();
+  x.beginPath();x.moveTo(86,54);x.lineTo(104,48);x.stroke();
+  x.beginPath();x.moveTo(52,52);x.lineTo(38,62);x.stroke();
+  x.setLineDash([2,11]);
+  x.beginPath();x.moveTo(20,20);x.lineTo(32,34);x.moveTo(6,50);x.lineTo(20,60);x.moveTo(44,8);x.lineTo(50,22);x.stroke();
+  x.restore();
+  // 段落间手绘波浪
+  function wavy(cy){x.save();x.strokeStyle="#D9CFBA";x.lineWidth=1.6;x.beginPath();x.moveTo(PAD,cy);const seg=30;for(let px=PAD;px<PAD+CW;px+=seg){x.quadraticCurveTo(px+seg/2,cy-3,Math.min(px+seg,PAD+CW),cy)}x.stroke();x.restore()}
+  x.textBaseline="top";
+  let firstH4=true;
+  layout.forEach(o=>{
+    if(o.r.t==="div"){x.save();x.strokeStyle="#8B6F52";x.lineWidth=1.4;x.setLineDash([6,6]);x.beginPath();x.moveTo(PAD,o.y+12);x.lineTo(PAD+CW,o.y+12);x.stroke();x.restore();return}
+    x.font=fonts[o.r.t];x.fillStyle=(o.r.t==="h4"||o.r.t==="hd1")?"#7C3D28":"#2E2A24";
+    if(o.r.t==="h4"){if(!firstH4)wavy(o.y-18);firstH4=false}
+    if(o.r.t==="hd1"||o.r.t==="hd2"||o.r.t==="end"){x.textAlign="center";o.lines.forEach((l,i)=>x.fillText(l,W/2,o.y+i*LH[o.r.t]))}
+    else{x.textAlign="left";o.lines.forEach((l,i)=>x.fillText(l,PAD,o.y+i*LH[o.r.t]))}});
+  ovl('<img src="'+c.toDataURL("image/png")+'" style="width:100%"><p class="hint center">长按图片，保存到手机相册</p><button class="btn ghost" onclick="closeOvl()">关闭</button>');
+}
+function cardHTML(d,name,dt,id){
+  let h='<div class="card"'+(id?' id="'+id+'"':'')+'><div class="hd"><div class="t1">如他所是 · 觉察日志</div><div class="t2">'+(name?esc(name)+" · ":"")+dt+'</div></div>';
+  if((d.wangnian||[]).length||d.emoreason){const why=[(d.wangnian||[]).length?esc(d.wangnian.join("、")):"",d.emoreason?esc(d.emoreason):""].filter(Boolean);h+="<p><b>我有情绪是因为——</b><br>"+why.join("<br>")+"</p>"}
+  if(d.plot)h+="<p><b>小我认为的——</b><br>"+esc(d.plot)+"</p>";
+  if(d.fact)h+="<p><b>事实是——</b><br>"+esc(d.fact)+"</p>";
+  if(d.nowact)h+="<p><b>当下我可以做——</b><br>"+esc(d.nowact)+"</p>";
+  h+='<div class="end dianjing">爱是如他所是，而非如我所愿。</div></div>';
+  return h;
+}
+function showCard(){$("#cardbox").innerHTML=cardHTML(st.d,st.name,new Date().toLocaleDateString("zh-CN",{year:"numeric",month:"long",day:"numeric"}),"vcard")}
+render();
+</script>
+</body></html>
