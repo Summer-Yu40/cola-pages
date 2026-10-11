@@ -38,7 +38,7 @@ textarea::placeholder{color:#C7B299;font-family:"Kaiti SC","STKaiti","KaiTi",ser
 .col{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:16px}
 .col .t{font-size:16px;margin-bottom:10px;letter-spacing:.05em}
 .col.f .t{color:var(--dark)}
-.col.p .t{color:var(--green)}
+.col.p .t{color:var(--dark)}
 .col textarea{min-height:100px;border-width:1px;background:var(--card)}
 .breathwrap{display:flex;flex-direction:column;align-items:center;padding:26px 0}
 .circle{width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#C89A7B,var(--accent));display:flex;align-items:center;justify-content:center;color:#F7F3EA;font-size:16px;letter-spacing:.2em;transition:transform 3.8s ease-in-out;box-shadow:0 10px 30px rgba(124,61,40,.22)}
@@ -78,7 +78,7 @@ const S={
  zhijue:"觉知：刚才发生了什么，我知道发生了什么。结束。做一些现在想做的事情，即可。",
  yongqi:"向内看，向自己开刀需要很大的勇气，这就是自我负责；不推卸任何责任，只是向内看，看见自己的业力惯性的思维模式和执念、头脑对他人的期待。",
  emos:["生气","愤怒","烦躁","心烦","委屈","憋屈","内疚","自责","羞愧","后悔","焦虑","担心","害怕","恐惧","紧张","不安","无力","疲惫","失望","伤心","悲伤","孤独","嫉妒","怨恨","不甘","无奈","迷茫","厌烦","又爱又气"],
- wangnian:["我希望Ta理解我、看见我","我以为这才是爱…","我担心Ta…","我忍不住想去管Ta的事","我想让这件事的结果如我所愿","我在意Ta人的评判","XX不是我期待的样子","我觉得我是对的，你应该听我的"]
+ wangnian:["我希望Ta理解我、看见我","我以为这才是爱…","我担心Ta…","我忍不住想去管Ta的事","我想让这件事的结果如我所愿","我在意Ta人的评判","XX不是我期待的样子","我觉得我是对的，XX应该听我的"]
 };
 const ATTACK_RE=/(我真|我就是|我是)?(没?有用|没用|无用|失败|差劲|糟糕透?顶|坏妈妈|坏爸爸|不配|废物|烂透)|都是我的错|我受不了自己|我怎么(这么|这)样?|又(搞砸|弄砸)|我真差|讨厌自己|恨死自己|我这人真|无可救药/;
 let st={step:0,d:{}};
@@ -127,13 +127,13 @@ function leaveBtn(){return '<div class="linkrow"><a href="javascript:void(0)" on
 function render(){
   const a=$("#app");const d=st.d;
   if(st.step===0){
-    a.innerHTML='<div class="brand">如 他 所 是 · 觉 察 系 列</div><div class="center"><svg width="120" height="74" viewBox="0 0 140 90" style="stroke:var(--accent);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round"><path d="M52,52 C60,40 76,40 86,54 C80,72 58,76 52,52"/><path d="M62,46 C72,30 88,30 98,42"/><path d="M86,54 L104,48"/><path d="M52,52 L38,62"/><path d="M20,20 L32,34 M6,50 L20,60 M44,8 L50,22" stroke-dasharray="1 8"/></svg></div><div class="center"><h1>回·来</h1></div>'+
-    '<p style="font-size:16px;color:var(--dark);margin-bottom:14px">情绪来了，不是坏事——那正是觉察自己的最好时机。</p>'+
+    a.innerHTML='<div class="brand" style="margin-bottom:10px">如 他 所 是 · 觉 察 系 列</div><div class="center"><svg width="134" height="82" viewBox="0 0 140 90" style="stroke:var(--accent);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round"><path d="M52,52 C60,40 76,40 86,54 C80,72 58,76 52,52"/><path d="M62,46 C72,30 88,30 98,42"/><path d="M86,54 L104,48"/><path d="M52,52 L38,62"/><path d="M20,20 L32,34 M6,50 L20,60 M44,8 L50,22" stroke-dasharray="1 8"/></svg></div><div class="center"><h1 style="font-size:46px;margin:6px 0 8px">回·来</h1></div>'+
+    '<p style="text-align:center;font-size:16px;color:var(--dark);line-height:1.9;margin:0 0 16px">情绪来了，不是坏事<br>——那正是觉察自己的最好时机。</p>'+
     '<div class="quote">'+S.openB+'</div>'+
-    '<p class="dim">全程大约三分钟，你写的一切只存在你自己的手机里，别人看不到。</p>'+
-    (draftStep()>0?'<button class="btn ghost" onclick="st.step='+Math.min(draftStep(),5)+';render()">继续上一次的觉察</button>':"")+ 
-    '<button class="btn" onclick="st.step=1;render()">开始</button>'+
-    '<p class="dim center" style="margin-top:12px">向内看，需要勇气</p>'+
+    '<p class="dim" style="text-align:center;margin-top:14px">全程大约三分钟，你写的一切只存在你自己的手机里，别人看不到。</p>'+
+    (draftStep()>0?'<button class="btn ghost" style="margin-top:16px" onclick="st.step='+Math.min(draftStep(),5)+';render()">继续上一次的觉察</button>':"")+ 
+    '<button class="btn" style="margin-top:20px" onclick="st.step=1;render()">开始</button>'+
+    '<p class="dim center" style="margin-top:16px;letter-spacing:.25em;text-indent:.25em">向内看，需要勇气</p>'+
     (hist().length?'<div class="linkrow"><a href="javascript:void(0)" onclick="showHist()">我的日志（'+hist().length+'）</a></div>':"");
     return;
   }
@@ -145,9 +145,9 @@ function render(){
   }
   if(st.step===2){
     a.innerHTML=dots()+'<h2><span class="n">2</span>刚才发生了什么？</h2><div class="cols">'+
-      '<div class="t" style="font-size:17px">📝 发生了什么</div><div class="hint" style="margin:0 0 6px">一句话记录刚才的事，故事要从场景开始</div>'+field("event","发生了什么（一句话）")+
+      '<div class="hint" style="margin:0 0 6px">📝 一句话记录刚才的事，故事要从场景开始</div>'+field("event","发生了什么（一句话）")+
       '<div class="cols">'+
-      '<div class="col p"><div class="t" style="font-size:17px">💭 头脑认为的我和Ta应该是怎么样的？</div>'+field("plot","我觉得……我希望……Ta应该……")+'</div>'+
+      '<div class="col p"><div class="t" style="font-size:17px">💭 头脑认为的我和Ta应该是怎么样的？</div><div class="hint" style="margin:0 0 6px">小我/头脑里（惯性思维）的想法……</div>'+field("plot","我觉得……我希望……Ta应该……")+'</div>'+
       '<div class="col f"><div class="t" style="font-size:17px">📷 事实中的我和Ta是什么样子的？</div><div class="hint" style="margin:0 0 6px">只记录看到、听到的真实状态，像摄像机拍摄下来的一样～</div>'+field("fact","我：\nTa：")+'</div></div>'+
       '<div id="camtip" class="hint" style="display:none;margin:10px 0 0;color:var(--dark)">🤔 思考：哪一栏是摄像头拍不到的“念头”？是这个“念头”让你有情绪，还是这件事本身？</div>'+
       '<div style="font-size:17px;font-weight:600;color:#7C3D28;margin:12px 0 6px">我有情绪是因为——<span class="dim" style="font-weight:400">（可点选）</span></div>'+
@@ -180,14 +180,14 @@ function render(){
     return;
   }
   if(st.step===4){
-    a.innerHTML=dots()+'<h2><span class="n">4</span>我是我，Ta是Ta</h2>'+
-      '<div style="display:flex;border:1px solid var(--line);background:var(--card);border-radius:6px;margin:4px 0 12px">'+
-        '<div style="flex:1;text-align:center;padding:26px 8px;font-family:\'Kaiti SC\',\'STKaiti\',\'KaiTi\',serif;font-size:24px;letter-spacing:.15em;color:var(--ink)">我是我</div>'+
+    a.innerHTML=dots()+'<h2 style="text-align:center"><span class="n">4</span>我是我，Ta是Ta</h2>'+
+      '<div style="display:flex;border:1px solid var(--line);background:var(--card);border-radius:6px;margin:10px 0 14px">'+
+        '<div style="flex:1;text-align:center;padding:34px 8px;font-family:\'Kaiti SC\',\'STKaiti\',\'KaiTi\',serif;font-size:28px;letter-spacing:.2em;color:var(--ink)">我是我</div>'+
         '<div style="width:1px;background:var(--line)"></div>'+
-        '<div style="flex:1;text-align:center;padding:26px 8px;font-family:\'Kaiti SC\',\'STKaiti\',\'KaiTi\',serif;font-size:24px;letter-spacing:.15em;color:var(--dark)">Ta是Ta</div>'+
+        '<div style="flex:1;text-align:center;padding:34px 8px;font-family:\'Kaiti SC\',\'STKaiti\',\'KaiTi\',serif;font-size:28px;letter-spacing:.2em;color:var(--dark)">Ta是Ta</div>'+
       '</div>'+
       '<div class="hint" style="text-align:center">Ta，是孩子、老公、朋友、爸妈，等任何其他人</div>'+
-      '<div style="text-align:center;font-size:17px;font-weight:600;color:#7C3D28;margin:14px 0 4px">我什么也掌控不了</div>'+
+      '<div style="text-align:center;font-size:19px;font-weight:600;color:#7C3D28;margin:16px 0 6px">我什么也掌控不了</div>'+
       '<div class="quote" style="text-align:center">敢于在生活中自我觉察，<br>才是真正的修行，才能恢复自己的主体性。</div>'+
       '<button class="btn" onclick="go(5)">收尾</button>'+leaveBtn();
     return;
@@ -196,7 +196,7 @@ function render(){
     a.innerHTML=dots()+'<h2>恭喜你，完成了一次自我觉知。</h2>'+
       '<input id="uname" placeholder="你的名字（写进日志署名，可不填）" value="'+esc(st.name||"")+'">'+
       '<div id="cardbox"></div>'+
-      '<div class="kline"><div class="krule"></div>觉知就是刚才发生了什么，<br>我知道发生了什么。<div class="krule"></div></div>'+
+      '<div class="kline">觉知就是刚才发生了什么，<br>我知道发生了什么。</div>'+
       '<div class="btnrow"><button class="btn mini" onclick="copyAll()">复制这份记录</button><button class="btn mini" onclick="makeImg()">保存图片</button><button class="btn mini ghost" onclick="askRestart()">再来一次</button><button class="btn mini ghost" onclick="showHist()">我的日志</button></div>';
     const u=$("#uname");if(u)u.addEventListener("input",()=>{st.name=u.value;save();showCard()});
     showCard();return;
@@ -225,7 +225,7 @@ function plain(){
   L.push((st.name?st.name+" · ":"")+"【觉察日志】"+new Date().toLocaleString("zh-CN"));
   if(d.event)L.push("\n◆ 发生了什么\n"+d.event);
   const why=[];if((d.wangnian||[]).length)why.push(d.wangnian.join("、"));if(d.emoreason)why.push(d.emoreason);
-  if(why.length)L.push("\n◆ 我有情绪是因为——\n"+why.join("\n"));
+  if(why.length)L.push("\n◆ 我有情绪是因为——\n"+why.join("，"));
   if(d.plot)L.push("\n◆ 小我认为的——\n"+d.plot);
   if(d.fact)L.push("\n◆ 事实是——\n"+d.fact);
   if(d.nowact)L.push("\n◆ 当下我可以做——\n"+d.nowact);
@@ -250,7 +250,7 @@ function makeImg(){
   const W=750,PAD=56,CW=W-PAD*2;
   const rows=[{t:"hd1",s:"如他所是 · 觉察日志"},{t:"hd2",s:(st.name?st.name+" · ":"")+dt},{t:"div"}];
   if(d.event){rows.push({t:"h4",s:"发生了什么——"},{t:"p",s:d.event})}
-  if((d.wangnian||[]).length||d.emoreason){rows.push({t:"h4",s:"我有情绪是因为——"});if((d.wangnian||[]).length)rows.push({t:"p",s:d.wangnian.join("、")});if(d.emoreason)rows.push({t:"p",s:d.emoreason})}
+  if((d.wangnian||[]).length||d.emoreason){const why=[(d.wangnian||[]).length?d.wangnian.join("、"):"",d.emoreason||""].filter(Boolean);rows.push({t:"h4",s:"我有情绪是因为——"},{t:"p",s:why.join("，")})}
   if(d.plot){rows.push({t:"h4",s:"小我认为的——"},{t:"p",s:d.plot})}
   if(d.fact){rows.push({t:"h4",s:"事实是——"},{t:"p",s:d.fact})}
   if(d.nowact){rows.push({t:"h4",s:"当下我可以做——"},{t:"p",s:d.nowact})}
@@ -291,7 +291,7 @@ function makeImg(){
 function cardHTML(d,name,dt,id){
   let h='<div class="card"'+(id?' id="'+id+'"':'')+'><div class="hd"><div class="t1">如他所是 · 觉察日志</div><div class="t2">'+(name?esc(name)+" · ":"")+dt+'</div></div>';
   if(d.event)h+="<p><b>发生了什么——</b><br>"+esc(d.event)+"</p>";
-  if((d.wangnian||[]).length||d.emoreason){const why=[(d.wangnian||[]).length?esc(d.wangnian.join("、")):"",d.emoreason?esc(d.emoreason):""].filter(Boolean);h+="<p><b>我有情绪是因为——</b><br>"+why.join("<br>")+"</p>"}
+  if((d.wangnian||[]).length||d.emoreason){const why=[(d.wangnian||[]).length?esc(d.wangnian.join("、")):"",d.emoreason?esc(d.emoreason):""].filter(Boolean);h+="<p><b>我有情绪是因为——</b><br>"+why.join("，")+"</p>"}
   if(d.plot)h+="<p><b>小我认为的——</b><br>"+esc(d.plot)+"</p>";
   if(d.fact)h+="<p><b>事实是——</b><br>"+esc(d.fact)+"</p>";
   if(d.nowact)h+="<p><b>当下我可以做——</b><br>"+esc(d.nowact)+"</p>";
