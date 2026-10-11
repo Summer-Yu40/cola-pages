@@ -1,4 +1,4 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>回来 · 自我觉察</title><meta name="theme-color" content="#F7F3EA"><link rel="apple-touch-icon" href="icon.png"><link rel="icon" href="icon.png"><style>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>回·来 · 如他所是</title><meta name="theme-color" content="#F7F3EA"><link rel="apple-touch-icon" href="icon.png"><link rel="icon" href="icon.png"><style>
 :root{--paper:#F7F3EA;--card:#FCFAF3;--ink:#2E2A24;--body:#4E463B;--muted:#97907F;--accent:#9E5138;--dark:#7C3D28;--green:#6F7D5C;--line:#E3DBC8;--soft:#F1EBDC}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
@@ -145,32 +145,33 @@ function render(){
   }
   if(st.step===2){
     a.innerHTML=dots()+'<h2><span class="n">2</span>刚才发生了什么？</h2><div class="cols">'+
-      '<div class="col p"><div class="t" style="font-size:17px">💭（小我）头脑认为的我和Ta应该是怎么样的？</div>'+field("plot","我觉得……我希望……Ta应该……")+'</div>'+
+      '<div class="t" style="font-size:17px">📝 发生了什么</div><div class="hint" style="margin:0 0 6px">一句话记录刚才的事，故事要从场景开始</div>'+field("event","发生了什么（一句话）")+
+      '<div class="cols">'+
+      '<div class="col p"><div class="t" style="font-size:17px">💭 头脑认为的我和Ta应该是怎么样的？</div>'+field("plot","我觉得……我希望……Ta应该……")+'</div>'+
       '<div class="col f"><div class="t" style="font-size:17px">📷 事实中的我和Ta是什么样子的？</div><div class="hint" style="margin:0 0 6px">只记录看到、听到的真实状态，像摄像机拍摄下来的一样～</div>'+field("fact","我：\nTa：")+'</div></div>'+
       '<div id="camtip" class="hint" style="display:none;margin:10px 0 0;color:var(--dark)">🤔 思考：哪一栏是摄像头拍不到的“念头”？是这个“念头”让你有情绪，还是这件事本身？</div>'+
       '<div style="font-size:17px;font-weight:600;color:#7C3D28;margin:12px 0 6px">我有情绪是因为——<span class="dim" style="font-weight:400">（可点选）</span></div>'+
       chipRow("wangnian",S.wangnian)+
       field("emoreason","我有情绪是因为……")+
       '<div class="quote" style="text-align:center">事实本身不会带来痛苦，<br>痛苦源于现实与我预想的不一致。</div>'+
-      '<button class="btn ghost" style="margin-top:12px" onclick="toast(\'放下掌控他人的心，情绪就会散去。\')">戳破它</button>'+
       '<button class="btn" onclick="go(3)">继续</button>';
-    bind("fact");bind("plot");bind("emoreason");bindChips("wangnian");
+    bind("fact");bind("plot");bind("emoreason");bind("event");bindChips("wangnian");
     const cam=()=>{const t=$("#camtip");if(t)t.style.display=($("#plot").value.trim()&&$("#fact").value.trim())?"block":"none"};
     $("#plot").addEventListener("input",cam);$("#fact").addEventListener("input",cam);cam();return;
   }
   if(st.step===3){
     let inner;
     if(st.choice==="fact"){
-      inner='<p class="hint">此刻，可以做什么具体的事让自己舒服、放松？</p>'+
+      inner='<p class="hint">事实已发生。当下我可以做的事……</p>'+
         field("nowact","写一件此刻就能做的小事")+
-        '<div class="hint">一杯水、开窗站一会儿、听音乐、做饭、出去走走，都算。</div>'+
+        '<div class="hint">开窗站一会儿、听音乐、做饭、出去走走，都算。</div>'+
         '<div class="quote" style="text-align:center">回归现实才是疗愈。<br>不进入剧情，不被小我带走，谁都伤害不了你。</div>'+
         '<button class="btn" onclick="go(4)">继续</button>';
     }else if(st.choice==="pain"){
       inner='<div class="quote">好，那就允许自己再待一会儿。情绪是你的，什么时候出来，你说了算。</div>'+
         '<button class="btn ghost" onclick="st.choice=\'fact\';save();render()">想出来了，看事实</button>';
     }else{
-      inner='<p class="hint" style="font-size:16px;line-height:1.9">你想继续待在情绪里，伤心痛苦，还是看事实、看见自己的妄想？<b>你自己选择。</b></p>'+
+      inner='<div style="text-align:center;padding:10px 4px 2px"><div style="font-size:17px;line-height:2;color:var(--body)">你想继续待在情绪里，伤心痛苦，<br>还是看事实、看见自己的妄想？</div><div style="font-size:19px;font-weight:600;color:var(--dark);margin:10px 0 6px">你自己选择。</div></div>'+
         '<button class="btn ghost" onclick="st.choice=\'pain\';save();render()">继续痛苦</button>'+
         '<button class="btn ghost" onclick="st.choice=\'fact\';save();render()">看事实</button>';
     }
@@ -248,6 +249,7 @@ function makeImg(){
   const d=st.d;const dt=new Date().toLocaleDateString("zh-CN",{year:"numeric",month:"long",day:"numeric"});
   const W=750,PAD=56,CW=W-PAD*2;
   const rows=[{t:"hd1",s:"如他所是 · 觉察日志"},{t:"hd2",s:(st.name?st.name+" · ":"")+dt},{t:"div"}];
+  if(d.event){rows.push({t:"h4",s:"发生了什么——"},{t:"p",s:d.event})}
   if((d.wangnian||[]).length||d.emoreason){rows.push({t:"h4",s:"我有情绪是因为——"});if((d.wangnian||[]).length)rows.push({t:"p",s:d.wangnian.join("、")});if(d.emoreason)rows.push({t:"p",s:d.emoreason})}
   if(d.plot){rows.push({t:"h4",s:"小我认为的——"},{t:"p",s:d.plot})}
   if(d.fact){rows.push({t:"h4",s:"事实是——"},{t:"p",s:d.fact})}
@@ -288,6 +290,7 @@ function makeImg(){
 }
 function cardHTML(d,name,dt,id){
   let h='<div class="card"'+(id?' id="'+id+'"':'')+'><div class="hd"><div class="t1">如他所是 · 觉察日志</div><div class="t2">'+(name?esc(name)+" · ":"")+dt+'</div></div>';
+  if(d.event)h+="<p><b>发生了什么——</b><br>"+esc(d.event)+"</p>";
   if((d.wangnian||[]).length||d.emoreason){const why=[(d.wangnian||[]).length?esc(d.wangnian.join("、")):"",d.emoreason?esc(d.emoreason):""].filter(Boolean);h+="<p><b>我有情绪是因为——</b><br>"+why.join("<br>")+"</p>"}
   if(d.plot)h+="<p><b>小我认为的——</b><br>"+esc(d.plot)+"</p>";
   if(d.fact)h+="<p><b>事实是——</b><br>"+esc(d.fact)+"</p>";
