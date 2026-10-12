@@ -196,7 +196,7 @@ function render(){
     a.innerHTML=dots()+'<h2>恭喜你，完成了一次自我觉知。</h2>'+
       '<input id="uname" placeholder="你的名字（写进日志署名，可不填）" value="'+esc(st.name||"")+'">'+
       '<div id="cardbox"></div>'+
-      '<div class="kline">觉知就是刚才发生了什么，<br>我知道发生了什么。</div>'+
+      '<div class="kline">每觉知一次，你的主体性便增强一分。</div>'+
       '<div class="btnrow"><button class="btn mini" onclick="copyAll()">复制这份记录</button><button class="btn mini" onclick="makeImg()">保存图片</button><button class="btn mini ghost" onclick="askRestart()">再来一次</button><button class="btn mini ghost" onclick="showHist()">我的日志</button></div>';
     const u=$("#uname");if(u)u.addEventListener("input",()=>{st.name=u.value;save();showCard()});
     showCard();return;
